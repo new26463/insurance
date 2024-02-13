@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "insurance:build:production"
+              "buildTarget": "insurance:build:production"
             },
             "development": {
-              "browserTarget": "insurance:build:development"
+              "buildTarget": "insurance:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "insurance:build"
+            "buildTarget": "insurance:build"
           }
         },
         "test": {
