@@ -1,0 +1,45 @@
+<div
+  [ngClass]="textColorClass"
+  [style.background]="bgColor || '#006039'"
+  class="navbar flex flex-col"
+>
+  <div class="flex justify-between w-full items-center py-3 gap-3 pointer-events-auto">
+    <ng-container>
+      <ng-container
+        *ngIf="backButton; else defaultBackBottom"
+        [ngTemplateOutlet]="backButton"
+      >
+      </ng-container>
+      <ng-template #defaultBackBottom>
+        <div
+          (click)="back()"
+          class="self-center"
+        >
+          กลับ
+          <i class="mb-i mb-i-chevron-left-outline icon"></i>
+        </div>
+      </ng-template>
+    </ng-container>
+    <ng-container>
+      <h1
+        [ngClass]="titleAlign == 'center' ? 'text-center' : 'text-left'"
+        class="text-base flex-grow self-center font-bold"
+      >
+        {{title | translate}}
+      </h1>
+    </ng-container>
+    <ng-container>
+      <div class="self-center">
+        <ng-container [ngTemplateOutlet]="actionButton"> </ng-container>
+      </div>
+    </ng-container>
+  </div>
+
+  <div
+    *ngIf="additionalTittleBar"
+    class="pointer-events-auto"
+    style="margin-top: -1px"
+  >
+    <ng-container [ngTemplateOutlet]="additionalTittleBar"> </ng-container>
+  </div>
+</div>

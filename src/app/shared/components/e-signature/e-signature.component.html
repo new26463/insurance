@@ -1,0 +1,24 @@
+<canvas
+  #canvas
+  (touchmove)="moved($event)"
+  (touchstart)="startDrawing($event)"
+  [class.hidden]="!signatureNeeded"
+  class="border-[1px] border-black mx-auto my-3 w-full h-[150px]"
+></canvas>
+<!-- height="200"
+  width="400" -->
+@if(signatureNeeded) {
+<p class="text-rose-500">Signature is required</p>
+} @if(!signatureNeeded) {
+<img
+  [src]="signatureImg"
+  class="border-[1px] border-black mx-auto my-3 w-full max-w-[300px] h-[150px]"
+/>
+<!-- height="200"
+  width="400" -->
+}
+
+<div class="flex flex-row gap-3 mx-auto justify-center">
+  <button (click)="clearPad()">Clear</button>
+  <button (click)="savePad()">Submit</button>
+</div>

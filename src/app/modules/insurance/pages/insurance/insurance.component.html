@@ -1,0 +1,119 @@
+<form
+  (ngSubmit)="submit()"
+  [formGroup]="insureForm"
+  class="flex flex-col"
+>
+  @if(currentIndex >= 0){
+  <div
+    (click)="goToIndex(0)"
+    class="flex flex-row gap-3 p-3"
+  >
+    <div class="flex grow gap-2">
+      <label for="name">ชื่อ</label>
+      @if(currentIndex > 0){
+      <p>{{insureForm.value.name}}</p>
+      }@if(currentIndex === 0){
+      <input
+        id="name"
+        class="w-full"
+        formControlName="name"
+        type="text"
+      />
+      }
+    </div>
+
+    <div class="flex grow gap-2">
+      <label for="surname">นามสกุล</label>
+      @if(currentIndex > 0){
+      <p>{{insureForm.value.surname}}</p>
+      }@if(currentIndex === 0){
+      <input
+        id="surname"
+        class="w-full"
+        formControlName="surname"
+        type="text"
+      />
+      }
+    </div>
+  </div>
+  } @if(currentIndex >= 1) {
+  <div
+    (click)="goToIndex(1)"
+    class="flex flex-row gap-3 p-3"
+  >
+    <label for="province-select">จังหวัด</label>
+    @if(currentIndex > 1){
+    <p>{{insureForm.value.province}}</p>
+    } @if(currentIndex === 1){
+    <select
+      id="province-select"
+      name="province"
+      formControlName="province"
+    >
+      <option
+        disabled
+        hidden
+        selected
+        value=""
+      >
+        --เลือกจังหวัด--
+      </option>
+      <option
+        *ngFor="let item of PROVINCE"
+        [value]="item.name_th"
+      >
+        {{item['name_th']}}
+      </option>
+    </select>
+    }
+  </div>
+  } @if(currentIndex >= 2) {
+  <div
+    (click)="goToIndex(2)"
+    class="flex flex-row gap-3 p-3"
+  >
+    <label for="surname">เบอร์โทรศัพท์</label>
+    @if(currentIndex > 2){
+    <p>{{insureForm.value.phoneNumber}}</p>
+    } @if(currentIndex === 2) {
+    <input
+      id="surname"
+      formControlName="phoneNumber"
+      maxlength="10"
+      type="text"
+    />
+    }
+  </div>
+  } @if(currentIndex >= 3) {
+  <div
+    (click)="goToIndex(3)"
+    class="flex flex-row gap-3 p-3"
+  >
+    <label for="surname">เลขบัตรประชาชน</label>
+    @if(currentIndex > 3){
+    <p>{{insureForm.value.personalId}}</p>
+    } @if(currentIndex === 3){
+    <input
+      id="surname"
+      formControlName="personalId"
+      maxlength="13"
+      type="text"
+    />
+    }
+  </div>
+  } @if(currentIndex >= 4) {
+  <div class="flex flex-row gap-3 p-3">
+    @if(!insureForm.value.eSign){
+    <app-e-signature (onSubmit)="onSign($event)"></app-e-signature>
+    }@else{
+    <img
+      (click)="goToIndex(4)"
+      [src]="insureForm.value.eSign"
+      class="border-[1px] border-black my-3 w-full max-w-[300px] h-[150px]"
+    />
+    }
+  </div>
+  }
+
+  <button (click)="onNext()">next</button>
+</form>

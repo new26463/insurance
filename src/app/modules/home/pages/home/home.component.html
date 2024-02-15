@@ -1,0 +1,21 @@
+<app-navbar
+  textColorClass="text-white"
+  title="home"
+  titleAlign="center"
+>
+  <ng-template #actionButton>
+    <button (click)="changeLang('th')">TH</button>
+    &nbsp;
+    <button (click)="changeLang('en')">EN</button>
+  </ng-template>
+</app-navbar>
+
+<div class="pt-[50px]">
+  <p class="text-3xl font-bold underline">home works!</p>
+  <a
+    [routerLink]="['/insurance']"
+    routerLinkActive="router-link-active"
+  >
+    สมัครเลย !!
+  </a>
+</div>
