@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, afterNextRender, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { LangaugeService } from 'src/app/core/services/langauge/langauge.service';
 import { PROVINCE } from 'src/app/data/constants';
 import { ESignatureComponent } from 'src/app/shared/components/e-signature';
@@ -9,20 +11,23 @@ import { insureForm } from '../../interfaces/insure-form/forgot-password-form.in
 @Component({
   selector: 'app-insurance',
   standalone: true,
-  imports: [CommonModule, ESignatureComponent, ReactiveFormsModule],
+  imports: [CommonModule, ESignatureComponent, ReactiveFormsModule, MatInputModule, MatSelectModule],
   templateUrl: './insurance.component.html',
   styleUrl: './insurance.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InsuranceComponent {
-  private readonly langaugeService: LangaugeService = inject(LangaugeService);
+  private readonly _langaugeService: LangaugeService = inject(LangaugeService);
   readonly insureForm: FormGroup<insureForm>;
   readonly PROVINCE = PROVINCE;
 
   currentIndex: number = 0;
-  language: string = this.langaugeService.language;
+  language!: string;
 
   constructor() {
+    afterNextRender(() => {
+      this.language = this._langaugeService?.language;
+    });
     const fb = inject(FormBuilder);
 
     this.insureForm = fb.group<insureForm>({
@@ -31,15 +36,11 @@ export class InsuranceComponent {
       surname: fb.control(null, Validators.required),
       email: fb.control(null, Validators.required),
       phoneNumber: fb.control(null, [Validators.required, Validators.maxLength(10)]),
-      dateOfBirth: fb.control(null, Validators.required),
-      gender: fb.control(null, Validators.required),
+      dateOfBirth: fb.control(null),
+      gender: fb.control(null),
       province: fb.control(null, Validators.required),
       eSign: fb.control(null, Validators.required),
     });
-  }
-
-  onSelect() {
-    console.log(this.insureForm.value);
   }
 
   onNext(nextIndex?: number) {
@@ -48,18 +49,39 @@ export class InsuranceComponent {
     switch (this.currentIndex) {
       case 0:
         isPass = this.insureForm.get('name')!.valid && this.insureForm.get('surname')!.valid;
+        if (!isPass) {
+          this.insureForm.get('name')!.markAsTouched();
+          this.insureForm.get('surname')!.markAsTouched();
+        }
         break;
       case 1:
         isPass = this.insureForm.get('province')!.valid;
+        if (!isPass) {
+          this.insureForm.get('province')!.markAsTouched();
+        }
         break;
       case 2:
         isPass = this.insureForm.get('phoneNumber')!.valid && this.insureForm.get('phoneNumber')!.value?.length == 10;
+        if (!isPass) {
+          this.insureForm.get('phoneNumber')!.markAsTouched();
+        }
         break;
       case 3:
         isPass = this.insureForm.get('personalId')!.valid && this.insureForm.get('personalId')!.value?.length == 13;
+        if (!isPass) {
+          this.insureForm.get('personalId')!.markAsTouched();
+        }
         break;
       case 4:
+        isPass = this.insureForm.get('email')!.valid;
+        if (!isPass) {
+          this.insureForm.get('email')!.markAsTouched();
+        }
+        break;
+      case 5:
         isPass = this.insureForm.get('eSign')!.valid;
+        console.log(this.insureForm.value);
+
         break;
     }
 

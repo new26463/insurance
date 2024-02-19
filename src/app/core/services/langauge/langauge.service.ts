@@ -15,10 +15,10 @@ export class LangaugeService {
   }
 
   get language(): string {
-    return sessionStorage.getItem('language') || 'th';
+    return localStorage.getItem('language') || 'th';
   }
 
   set language(lang: string) {
-    sessionStorage.setItem('language', lang);
+    localStorage.setItem('language', lang);
   }
 }

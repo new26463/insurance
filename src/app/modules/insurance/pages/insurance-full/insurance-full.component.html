@@ -2,79 +2,93 @@
   <form
     (ngSubmit)="submit()"
     [formGroup]="insureForm"
-    class="flex flex-col"
+    class="flex flex-col w-100 p-3"
   >
-    <div class="flex flex-row gap-3 p-3">
-      <div class="flex grow gap-2">
-        <label for="name">ชื่อ</label>
+    <div class="flex flex-row gap-3">
+      <mat-form-field>
+        <mat-label>ชื่อ</mat-label>
         <input
-          id="name"
-          class="w-full"
           formControlName="name"
+          matInput
           type="text"
         />
-      </div>
-      <div class="flex grow gap-2">
-        <label for="surname">นามสกุล</label>
+        @if (insureForm.get('name')?.errors && insureForm.get('name')?.touched) {
+        <mat-error class="text-xs">กรุณาใส่ชื่อ</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>นามสกุล</mat-label>
         <input
-          id="surname"
-          class="w-full"
           formControlName="surname"
+          matInput
           type="text"
         />
-      </div>
+        @if (insureForm.get('surname')?.errors && insureForm.get('surname')?.touched) {
+        <mat-error class="text-xs">กรุณาใส่นามสกุล</mat-error>
+        }
+      </mat-form-field>
     </div>
-    <div class="flex flex-row gap-3 p-3">
-      <label for="province-select">จังหวัด</label>
-      <select
-        id="province-select"
-        name="province"
-        formControlName="province"
-      >
-        <option
+
+    <mat-form-field>
+      <mat-label>จังหวัด</mat-label>
+      <mat-select formControlName="province">
+        <mat-option
           disabled
           hidden
           selected
           value=""
         >
           --เลือกจังหวัด--
-        </option>
-        <option
-          *ngFor="let item of PROVINCE"
-          [value]="item.name_th"
-        >
-          {{item['name_th']}}
-        </option>
-      </select>
-    </div>
-    <div class="flex flex-row gap-3 p-3">
-      <label for="phoneNumber">เบอร์โทรศัพท์</label>
+        </mat-option>
+        @for(item of PROVINCE; track item) {
+        <mat-option [value]="item.name_th"> {{item['name_th']}} </mat-option>
+        }
+      </mat-select>
+      @if (insureForm.get('province')?.errors && insureForm.get('province')?.touched) {
+      <mat-error class="text-xs">กรุณาเลือกจังหวัด</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>เบอร์โทรศัพท์</mat-label>
       <input
-        id="phoneNumber"
         formControlName="phoneNumber"
+        matInput
         maxlength="10"
         type="text"
       />
-    </div>
-    <div class="flex flex-row gap-3 p-3">
-      <label for="personalId">เลขบัตรประชาชน</label>
+      @if (insureForm.get('phoneNumber')?.errors && insureForm.get('phoneNumber')?.touched) {
+      <mat-error class="text-xs">กรุณาใส่เบอร์โทรศัพท์</mat-error>
+      }
+    </mat-form-field>
 
+    <mat-form-field>
+      <mat-label>เลขบัตรประชาชน</mat-label>
       <input
-        id="personalId"
         formControlName="personalId"
+        matInput
         maxlength="13"
         type="text"
       />
-    </div>
-    <div class="flex flex-row gap-3 p-3">
-      <label for="email">E-Mail</label>
+      @if (insureForm.get('personalId')?.errors && insureForm.get('personalId')?.touched) {
+      <mat-error class="text-xs">กรุณาใส่เลขบัตรประชาชน</mat-error>
+      }
+    </mat-form-field>
 
+    <mat-form-field>
+      <mat-label>Email</mat-label>
       <input
-        id="email"
         formControlName="email"
+        matInput
+        placeholder="Ex. pat@example.com"
         type="email"
       />
-    </div>
+      @if (insureForm.get('email')?.errors && insureForm.get('email')?.touched) {
+      <mat-error class="text-xs">กรุณาใส่ email</mat-error>
+      }
+    </mat-form-field>
+
     <div class="flex flex-row gap-3 p-3">
       <app-e-signature (onSubmit)="onSign($event)"></app-e-signature>
     </div>

@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild,
+  afterNextRender,
+} from '@angular/core';
 import SignaturePad from 'signature_pad';
 
 @Component({
@@ -17,9 +25,17 @@ export class ESignatureComponent {
   signaturePad!: SignaturePad;
   signatureImg!: string;
 
-  ngAfterViewInit(): void {
-    this.signaturePad = new SignaturePad(this.canvas.nativeElement);
+  constructor() {
+    afterNextRender(() => {
+      this.signaturePad = new SignaturePad(this.canvas.nativeElement);
+    });
   }
+
+  // ngAfterViewInit(): void {
+  //   afterRender(() => {
+  //     this.signaturePad = new SignaturePad(this.canvas.nativeElement);
+  //   });
+  // }
 
   startDrawing(event: Event) {
     // works in device not in browser

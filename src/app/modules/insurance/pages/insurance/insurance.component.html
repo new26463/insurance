@@ -8,63 +8,63 @@
     (click)="goToIndex(0)"
     class="flex flex-row gap-3 p-3"
   >
-    <div class="flex grow gap-2">
-      <label for="name">ชื่อ</label>
-      @if(currentIndex > 0){
-      <p>{{insureForm.value.name}}</p>
-      }@if(currentIndex === 0){
+    @if(currentIndex > 0){
+    <p>ชื่อ {{insureForm.value.name}}</p>
+    }@if(currentIndex === 0){
+    <mat-form-field>
+      <mat-label>ชื่อ</mat-label>
       <input
-        id="name"
-        class="w-full"
         formControlName="name"
+        matInput
         type="text"
       />
+      @if (insureForm.get('name')?.errors && insureForm.get('name')?.touched) {
+      <mat-error class="text-xs">กรุณาใส่ชื่อ</mat-error>
       }
-    </div>
-
-    <div class="flex grow gap-2">
-      <label for="surname">นามสกุล</label>
-      @if(currentIndex > 0){
-      <p>{{insureForm.value.surname}}</p>
-      }@if(currentIndex === 0){
+    </mat-form-field>
+    } @if(currentIndex > 0){
+    <p>นามสกุล {{insureForm.value.surname}}</p>
+    }@if(currentIndex === 0){
+    <mat-form-field>
+      <mat-label>นามสกุล</mat-label>
       <input
-        id="surname"
-        class="w-full"
         formControlName="surname"
+        matInput
         type="text"
       />
+      @if (insureForm.get('surname')?.errors && insureForm.get('surname')?.touched) {
+      <mat-error class="text-xs">กรุณาใส่นามสกุล</mat-error>
       }
-    </div>
+    </mat-form-field>
+    }
   </div>
   } @if(currentIndex >= 1) {
   <div
     (click)="goToIndex(1)"
     class="flex flex-row gap-3 p-3"
   >
-    <label for="province-select">จังหวัด</label>
     @if(currentIndex > 1){
-    <p>{{insureForm.value.province}}</p>
+    <p>จังหวัด {{insureForm.value.province}}</p>
     } @if(currentIndex === 1){
-    <select
-      id="province-select"
-      name="province"
-      formControlName="province"
-    >
-      <option
-        disabled
-        hidden
-        selected
-        value=""
-      >
-        --เลือกจังหวัด--
-      </option>
-      <option
-        *ngFor="let item of PROVINCE"
-        [value]="item.name_th"
-      >
-        {{item['name_th']}}
-      </option>
-    </select>
+    <mat-form-field>
+      <mat-label>จังหวัด</mat-label>
+      <mat-select formControlName="province">
+        <mat-option
+          disabled
+          hidden
+          selected
+          value=""
+        >
+          --เลือกจังหวัด--
+        </mat-option>
+        @for(item of PROVINCE; track item) {
+        <mat-option [value]="item.name_th"> {{item['name_th']}} </mat-option>
+        }
+      </mat-select>
+      @if (insureForm.get('province')?.errors && insureForm.get('province')?.touched) {
+      <mat-error class="text-xs">กรุณาเลือกจังหวัด</mat-error>
+      }
+    </mat-form-field>
     }
   </div>
   } @if(currentIndex >= 2) {
@@ -72,16 +72,21 @@
     (click)="goToIndex(2)"
     class="flex flex-row gap-3 p-3"
   >
-    <label for="surname">เบอร์โทรศัพท์</label>
     @if(currentIndex > 2){
-    <p>{{insureForm.value.phoneNumber}}</p>
+    <p>เบอร์โทรศัพท์ {{insureForm.value.phoneNumber}}</p>
     } @if(currentIndex === 2) {
-    <input
-      id="surname"
-      formControlName="phoneNumber"
-      maxlength="10"
-      type="text"
-    />
+    <mat-form-field>
+      <mat-label>เบอร์โทรศัพท์</mat-label>
+      <input
+        formControlName="phoneNumber"
+        matInput
+        maxlength="10"
+        type="text"
+      />
+      @if (insureForm.get('phoneNumber')?.errors && insureForm.get('phoneNumber')?.touched) {
+      <mat-error class="text-xs">กรุณาใส่เบอร์โทรศัพท์</mat-error>
+      }
+    </mat-form-field>
     }
   </div>
   } @if(currentIndex >= 3) {
@@ -89,25 +94,49 @@
     (click)="goToIndex(3)"
     class="flex flex-row gap-3 p-3"
   >
-    <label for="surname">เลขบัตรประชาชน</label>
     @if(currentIndex > 3){
-    <p>{{insureForm.value.personalId}}</p>
+    <p>เลขบัตรประชาชน {{insureForm.value.personalId}}</p>
     } @if(currentIndex === 3){
-    <input
-      id="surname"
-      formControlName="personalId"
-      maxlength="13"
-      type="text"
-    />
+    <mat-form-field>
+      <mat-label>เลขบัตรประชาชน</mat-label>
+      <input
+        formControlName="personalId"
+        matInput
+        maxlength="13"
+        type="text"
+      />
+      @if (insureForm.get('personalId')?.errors && insureForm.get('personalId')?.touched) {
+      <mat-error class="text-xs">กรุณาใส่เลขบัตรประชาชน</mat-error>
+      }
+    </mat-form-field>
     }
   </div>
   } @if(currentIndex >= 4) {
+  <div class="flex flex-row gap-3 p-3">
+    @if(currentIndex > 4){
+    <p>Email {{insureForm.value.email}}</p>
+    } @if(currentIndex === 4){
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        formControlName="email"
+        matInput
+        placeholder="Ex. pat@example.com"
+        type="email"
+      />
+      @if (insureForm.get('email')?.errors && insureForm.get('email')?.touched) {
+      <mat-error class="text-xs">กรุณาใส่ email</mat-error>
+      }
+    </mat-form-field>
+    }
+  </div>
+  } @if(currentIndex >= 5) {
   <div class="flex flex-row gap-3 p-3">
     @if(!insureForm.value.eSign){
     <app-e-signature (onSubmit)="onSign($event)"></app-e-signature>
     }@else{
     <img
-      (click)="goToIndex(4)"
+      (click)="goToIndex(5)"
       [src]="insureForm.value.eSign"
       class="border-[1px] border-black my-3 w-full max-w-[300px] h-[150px]"
     />
