@@ -1,7 +1,6 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -20,26 +19,41 @@ $insurance-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$insurance-theme: mat.define-light-theme((
-  color: (
-    primary: $insurance-primary,
-    accent: $insurance-accent,
-    warn: $insurance-warn,
+$insurance-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $insurance-primary,
+      accent: $insurance-accent,
+      warn: $insurance-warn,
+    ),
   )
-));
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($insurance-theme);
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+// tailwind
+@layer tw-base, primeng, tw-components, tw-utilities;
+
+@import "tailwindcss/base.css" layer(tw-base);
+@import "tailwindcss/components.css" layer(tw-components);
+@import "tailwindcss/utilities.css" layer(tw-utilities);
+
+// primeng
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
 
 html {
   @apply bg-neutral-100;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
