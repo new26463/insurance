@@ -10,28 +10,16 @@
   </ng-template>
 </app-navbar>
 
-<div class="pt-[50px]">
-  <p class="text-3xl font-bold underline">home works!</p>
+<div class="max-xl mx-auto pt-[50px] px-3">
   <a
     [routerLink]="['/insurance']"
     routerLinkActive="router-link-active"
   >
-    สมัครเลย !!
+    <p class="text-3xl font-bold underline">สมัครเลย !!</p>
   </a>
 </div>
-<div class="flex grow gap-3 p-3">
-  <input
-    [(ngModel)]="value"
-    class="p-inputtext-sm w-full"
-    pInputText
-    placeholder="Small"
-    type="text"
-  />
+<div class="grid grid-cols-1 gap-3 p-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+  @for(list of lists; let i = $index; track list; ) {
+  <app-product-card [item]="i"></app-product-card>
+  }
 </div>
-
-<button
-  class="p-button-success"
-  label="Submit"
-  pButton
-  pRipple
-></button>
