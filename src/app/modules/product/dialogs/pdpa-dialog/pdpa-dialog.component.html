@@ -4,6 +4,15 @@
   [visible]="true"
   header="ข้อตกลงการให้บริการ"
 >
+  <!-- <ng-template pTemplate="header">
+    <p-button
+      [disabled]="!isCheck && true"
+      label="Submit"
+      size="small"
+      styleClass="w-full"
+    ></p-button>
+  </ng-template> -->
+
   <section class="mt-3 mb-2">
     <h2 class="text-base font-bold">ความเกี่ยวข้องของคุณกับ "GreenConNEXT"</h2>
     <ul>
@@ -276,9 +285,9 @@
   <ng-template pTemplate="footer">
     <p-button
       [disabled]="!isCheck && true"
-      class="w-screen"
       label="Submit"
       size="small"
+      styleClass="w-full"
     ></p-button>
   </ng-template>
 </p-dialog>
