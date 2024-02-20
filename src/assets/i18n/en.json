@@ -1,3 +1,7 @@
 {
-  "home": "Home"
+  "home": "Home",
+  "product": {
+    "healthCare": "Health Care"
+  },
+  "buy": "Buy insurance"
 }
